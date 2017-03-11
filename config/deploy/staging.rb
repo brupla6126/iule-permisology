@@ -34,6 +34,8 @@ server "staging01", user: "bruno", roles: %w{app db service web}
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
+# bundle:install
+set :bundle_without, [:development, :test]
 
 
 # Custom SSH Options
