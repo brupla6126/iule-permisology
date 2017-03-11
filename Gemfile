@@ -24,6 +24,7 @@ end
 
 gem 'capistrano', '>= 3.8.0'
 gem 'capistrano-bundler', '~> 1.2'
+gem 'capistrano-rvm', '>= 0.1.2'
 gem 'capistrano-service', '>= 0.0.2'
 
 gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
