@@ -35,8 +35,10 @@ server "staging01", user: "bruno", roles: %w{app db service web}
 # Feel free to add new variables to customise your setup.
 
 # bundle:install
-set :bundle_without, [:development, :test]
-
+set :bundle_gemfile, -> { release_path.join('Gemfile') } # default: nil
+set :bundle_path, -> { shared_path.join('bundle') } # this is default. set it to nil for skipping the --path flag.
+set :bundle_without, [:development]
+set :bundle_jobs, 4 # default: nil, only available for Bundler >= 1.4
 
 # Custom SSH Options
 # ==================
