@@ -1,0 +1,5 @@
+--exclude plugins/*
+--exclude spec/*
+--exclude tmp/*
+--exclude test/*
+*.rb

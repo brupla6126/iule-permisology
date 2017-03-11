@@ -1,0 +1,37 @@
+AllCops:
+#  Include:
+#    - '**/Rakefile'
+#    - '**/config.ru'
+  Exclude:
+    - '**/*~'
+    - '*.gemspec'
+    - 'Gemfile'
+    - 'Guardfile'
+    - 'Rakefile'
+    - 'db/**/*'
+    - 'prueba.rb'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'test/**/*'
+    - 'tasks/**/*'
+    - 'lib/plugins/dependencies/**/*'
+    - 'spec/spec_helper.rb'
+#    - !ruby/regexp /old_and_unused\.rb$/
+
+Metrics/AbcSize:
+  # The ABC size is a calculated magnitude, so this number can be a Fixnum or
+  # a Float.
+  Max: 25
+Metrics/CyclomaticComplexity:
+  Max: 10
+Metrics/LineLength:
+  Enabled: false
+Metrics/MethodLength:
+  Max: 20
+Metrics/PerceivedComplexity:
+  Max: 10
+
+Style/EndOfLine:
+  Enabled: false
+# Style/MethodMissing:
+#  Enabled: false
