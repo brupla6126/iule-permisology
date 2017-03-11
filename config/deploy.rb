@@ -32,3 +32,6 @@ set :deploy_to, "/srv/services/#{fetch :name}"
 
 # Default value for keep_releases is 5
 set :keep_releases, 5
+
+# passenger
+set :passenger_restart_with_touch, true
