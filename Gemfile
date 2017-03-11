@@ -27,8 +27,8 @@ gem 'capistrano-service', '>= 0.0.2'
 
 gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
 
-gem 'araignee', :github => 'brupla6126/araignee', :branch => 'WIP-adjustments' # master
-gem 'cloporte-permisology', :github => 'brupla6126/cloporte-permisology', :branch => 'WIP-adjustments' # master
+gem 'araignee', :github => 'brupla6126/araignee', :branch => 'master'
+gem 'cloporte-permisology', :github => 'brupla6126/cloporte-permisology', :branch => 'master'
 
 # Specify your gem's dependencies in iule-permisology.gemspec
 gemspec
