@@ -1,4 +1,4 @@
-# Iule Permisology, a REST service for Permisology
+# Iule Permisology, a REST microservice for Permisology
 
 In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/iule/permisology`. To experiment with that code, run `bin/console` for an interactive prompt.
 
@@ -30,5 +30,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/iule-permisology.
+Bug reports and pull requests are welcome on GitHub at https://github.com/[brupla6126]/iule-permisology.
 
