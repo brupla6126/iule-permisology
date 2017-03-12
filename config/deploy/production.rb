@@ -41,19 +41,11 @@ set :bundle_jobs, 4 # default: nil, only available for Bundler >= 1.4
 # logging
 set :logging, {
   loggers: {
-    console: {
-      output: :console, # :file, :console
-    },
-    file: {
-      output: :file, # :file, :console
-      rotation: :daily
-    }
-  },
-  logs: {
     default: {
-      logger: :file,
+      output: :file, # :file, :console
+      rotation: :daily,
       level: :info, # :debug, :info, :warn, :error, :fatal
-      formatter: :date_time_ms # :simple, :date_time, :date_time_ms, :time_ms
+      formatter: :date_time # :simple, :date_time, :date_time_ms, :time_ms
     }
   }
 }

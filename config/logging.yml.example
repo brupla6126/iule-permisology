@@ -1,7 +1,6 @@
-logging:
-  loggers:
-    default:
-      output: 'console' # :file, :console
-      # rotation: 'daily'
-      level: 'debug' # debug, info, warn, error, fatal
-      formatter: 'time_ms' # simple, date_time, date_time_ms, time_ms
+loggers:
+  default:
+    output: 'console' # :file, :console
+    # rotation: 'daily'
+    level: 'debug' # debug, info, warn, error, fatal
+    formatter: 'time_ms' # simple, date_time, date_time_ms, time_ms
