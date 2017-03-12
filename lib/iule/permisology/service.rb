@@ -27,8 +27,8 @@ module PermisologyService
         require_relative file.to_s
       end
 
-      Log[:service].info { '----------------------------' }
-      Log[:service].info { 'Starting Permisology Service' }
+      Log.info { '----------------------------' }
+      Log.info { 'Starting Permisology Service' }
 
       Log.debug { "repository: #{Repository.helpers}" }
 
@@ -36,16 +36,18 @@ module PermisologyService
         Log.debug { "#{route.options[:method]} #{route.origin}" }
       end
     end
-
+    
     before do
-      Log[:service].info { "#{request.env['REQUEST_METHOD']} #{request.env['REQUEST_URI']}" }
+      api = request.env['REQUEST_URI'].split('/')[1].to_sym rescue :default
 
-      Log[:service].debug { "params: #{params.to_h}" }
+      Log[api].info { "#{request.env['REQUEST_METHOD']} #{request.env['REQUEST_URI']}" }
+
+      Log[api].debug { "params: #{params.to_h}" }
     end
 
     rescue_from :all do |e|
-      Log[:service].error { e.message }
-      Log[:service].error { e.backtrace }
+      Log.error { e.message }
+      Log.error { e.backtrace }
 
       error!({ error: 'Server error.' }, 500, 'Content-Type' => 'text/error')
     end
@@ -53,7 +55,7 @@ module PermisologyService
     get '/info' do
       response = { app: 'PermisologyService', version: 'v1' }
 
-      Log[:service].info { "response: #{response}" }
+      Log.info { "response: #{response}" }
 
       response
     end

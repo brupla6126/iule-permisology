@@ -10,7 +10,7 @@ module PermisologyService
   class RoleAPIv1 < Grape::API
     default_format :json
 
-    resource :roles do
+    resource :role do
       get '/' do
         response = {}
 
@@ -28,6 +28,8 @@ module PermisologyService
           response['errors'] = result.messages
           status 500
         end
+
+        Log[:role].debug { "response: #{response}" }
 
         response
       end
@@ -57,7 +59,7 @@ module PermisologyService
           status 500
         end
 
-        Log[:roles].debug { "response: #{response}" }
+        Log[:role].debug { "response: #{response}" }
 
         response
       end
@@ -94,7 +96,7 @@ module PermisologyService
           end
         end
 
-        Log[:roles].debug { "response: #{response}" }
+        Log[:role].debug { "response: #{response}" }
 
         response
       end
@@ -124,7 +126,7 @@ module PermisologyService
           status 500
         end
 
-        Log[:roles].debug { "response: #{response}" }
+        Log[:role].debug { "response: #{response}" }
 
         response
       end
@@ -162,7 +164,7 @@ module PermisologyService
           end
         end
 
-        Log[:roles].debug { "response: #{response}" }
+        Log[:role].debug { "response: #{response}" }
 
         response
       end
