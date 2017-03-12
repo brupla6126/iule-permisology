@@ -1,4 +1,4 @@
-ask(:branch, "Branch to deploy (make sure to push the branch first), default to dev" ,'dev')
+set :branch, ask('Branch to deploy (make sure to push it first), defaults to WIP-adjustments.','WIP-adjustments')
 
 # server-based syntax
 # ======================
