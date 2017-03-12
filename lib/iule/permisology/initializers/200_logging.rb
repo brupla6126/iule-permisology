@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-config = YAML.load_file("#{PermisologyService.root}/config/logging.yml")['logging']
+config = YAML.load_file("#{PermisologyService.root}/config/logging.yml")
 
 formatters = {
   simple: proc do |severity, _datetime, _progname, msg|

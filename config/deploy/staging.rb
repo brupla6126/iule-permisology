@@ -40,6 +40,26 @@ set :bundle_path, -> { shared_path.join('bundle') } # this is default. set it to
 set :bundle_without, [:development]
 set :bundle_jobs, 4 # default: nil, only available for Bundler >= 1.4
 
+# logging
+set :logging, {
+  loggers: {
+    console: {
+      output: :console, # :file, :console
+    },
+    file: {
+      output: :file, # :file, :console
+      rotation: :daily
+    }
+  },
+  logs: {
+    default: {
+      logger: :console,
+      level: :debug, # :debug, :info, :warn, :error, :fatal
+      formatter: :time_ms # :simple, :date_time, :date_time_ms, :time_ms
+    }
+  }
+}
+
 # Custom SSH Options
 # ==================
 # You may pass any option but keep in mind that net/ssh understands a

@@ -1,4 +1,4 @@
-<% logging.each do |k, v| %>
+<% fetch(:logging).each do |k, v| %>
   <%= k %>: <% v.each do |group_name, group_params| %>
     <%= group_name %>: <% group_params.each do |param, value| %>
       <%= param %>: '<%= value %>' <% end %>
