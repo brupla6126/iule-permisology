@@ -16,10 +16,10 @@ RSpec.describe PermisologyService::RoleAPIv1 do
     Repository.for(Roles::Role, :storage).clear
   end
 
-  describe 'GET /v1/roles/' do
+  describe 'GET /v1/role/' do
 
     context 'there are no entities in the storage' do
-      before { get '/v1/roles/', format: :json }
+      before { get '/v1/role/', format: :json }
 
       it 'should return status 200' do
         expect(last_response.status).to eq(200)
@@ -34,10 +34,10 @@ RSpec.describe PermisologyService::RoleAPIv1 do
 
     context 'there are entities in the storage' do
       before do
-        post '/v1/roles/', 'name' => 'name1', 'permissions' => ['abc']
-        post '/v1/roles/', 'name' => 'name2', 'permissions' => ['abc', 'xyz']
+        post '/v1/role/', 'name' => 'name1', 'permissions' => ['abc']
+        post '/v1/role/', 'name' => 'name2', 'permissions' => ['abc', 'xyz']
 
-        get '/v1/roles/', format: :json
+        get '/v1/role/', format: :json
       end
 
       it 'should return status 200' do
@@ -52,12 +52,12 @@ RSpec.describe PermisologyService::RoleAPIv1 do
     end
   end
 
-  describe 'GET /v1/roles/:id' do
+  describe 'GET /v1/role/:id' do
     context 'entity does not already exists' do
       let(:name) { 'ff' }
 
       before do
-        get "/v1/roles/#{name}", format: :json
+        get "/v1/role/#{name}", format: :json
       end
 
       it 'should return status 404' do
@@ -69,12 +69,12 @@ RSpec.describe PermisologyService::RoleAPIv1 do
       let(:name) { 'ff' }
 
       before do
-        post '/v1/roles/', 'name' => name, 'permissions' => ['abc']
+        post '/v1/role/', 'name' => name, 'permissions' => ['abc']
 
         body = JSON.parse(last_response.body)
         id = body['entity']['id']
 
-        get "/v1/roles/#{id}", format: :json
+        get "/v1/role/#{id}", format: :json
       end
 
       it 'should return status 200 and the entity' do
@@ -87,12 +87,12 @@ RSpec.describe PermisologyService::RoleAPIv1 do
     end
   end
 
-  describe 'POST /v1/roles/' do
+  describe 'POST /v1/role/' do
     context 'entity does not already exists' do
       context 'with parameter permissions missing' do
         let(:name) { 'ff' }
 
-        before { post '/v1/roles/', 'name' => name }
+        before { post '/v1/role/', 'name' => name }
 
         it 'should return entity with permissions defaulting to []' do
           expect(last_response.status).to eq(201)
@@ -108,7 +108,7 @@ RSpec.describe PermisologyService::RoleAPIv1 do
         let(:name) { 'fif' }
         let(:permissions) { ['abc', 'xyz'] }
 
-        before { post '/v1/roles/', 'name' => name, 'permissions' => permissions }
+        before { post '/v1/role/', 'name' => name, 'permissions' => permissions }
 
         it 'should return entity with permissions' do
           expect(last_response.status).to eq(201)
@@ -125,8 +125,8 @@ RSpec.describe PermisologyService::RoleAPIv1 do
       let(:name) { 'aa' }
 
       before do
-        post '/v1/roles/', 'name' => name, 'permissions' => ['abc']
-        post '/v1/roles/', 'name' => name
+        post '/v1/role/', 'name' => name, 'permissions' => ['abc']
+        post '/v1/role/', 'name' => name
       end
 
       it 'should return status 409' do
@@ -135,13 +135,13 @@ RSpec.describe PermisologyService::RoleAPIv1 do
     end
   end
 
-  describe 'PUT /v1/roles/:id' do
+  describe 'PUT /v1/role/:id' do
     let(:name) { 'fif' }
     let(:permissions) { ['abc', 'xyz'] }
 
     context 'updating inexisting role' do
       before do
-        put '/v1/roles/vu', 'name' => name, 'permissions' => permissions
+        put '/v1/role/vu', 'name' => name, 'permissions' => permissions
       end
 
       it 'returns status 200' do
@@ -159,12 +159,12 @@ RSpec.describe PermisologyService::RoleAPIv1 do
       let(:new_permissions) { ['abc', 'def', 'xyz'] }
 
       before do
-        post "/v1/roles/", 'name' => name, 'permissions' => permissions
+        post "/v1/role/", 'name' => name, 'permissions' => permissions
 
         body = JSON.parse(last_response.body)
         @id = body['entity']['id']
 
-        put "/v1/roles/#{@id}", 'name' => name, 'permissions' => new_permissions
+        put "/v1/role/#{@id}", 'name' => name, 'permissions' => new_permissions
       end
 
       it 'should return status 200 and updates entity' do
@@ -178,10 +178,10 @@ RSpec.describe PermisologyService::RoleAPIv1 do
     end
   end
 
-  describe 'DELETE /v1/roles/:id' do
+  describe 'DELETE /v1/role/:id' do
     context 'deleting inexisting role' do
       it 'returns status 404' do
-        delete '/v1/roles/xx'
+        delete '/v1/role/xx'
 
         expect(last_response.status).to eq(404)
       end
@@ -191,14 +191,14 @@ RSpec.describe PermisologyService::RoleAPIv1 do
       let(:name) { 'ff' }
 
       before do
-        post '/v1/roles/', 'name' => name, 'permissions' => ['abc']
+        post '/v1/role/', 'name' => name, 'permissions' => ['abc']
 
         body = JSON.parse(last_response.body)
         @id = body['entity']['id']
       end
 
       it 'returns status 200' do
-        delete "/v1/roles/#{@id}"
+        delete "/v1/role/#{@id}"
 
         expect(last_response.status).to eq(200)
       end
