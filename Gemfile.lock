@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/brupla6126/araignee.git
+  remote: git@github.com:brupla6126/araignee
   revision: b42ef56a439136ddfe59d8882d2fe2632f8428e6
   branch: master
   specs:
@@ -8,7 +8,7 @@ GIT
       virtus (~> 1.0)
 
 GIT
-  remote: git://github.com/brupla6126/cloporte-permisology.git
+  remote: git@github.com:brupla6126/cloporte-permisology
   revision: 89cc0c48549f6817188a9ab64a760d5b78d0e73e
   branch: master
   specs:
