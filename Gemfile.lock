@@ -1,9 +1,9 @@
 GIT
   remote: git@github.com:brupla6126/araignee
-  revision: b42ef56a439136ddfe59d8882d2fe2632f8428e6
+  revision: dbc2332a7c119b63f0cbbf474714cda1d51d05de
   branch: master
   specs:
-    araignee (0.6.0)
+    araignee (0.6.1)
       logger (~> 1.2)
       virtus (~> 1.0)
 
