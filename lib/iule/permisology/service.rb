@@ -38,11 +38,20 @@ module PermisologyService
     end
     
     before do
-      api = request.env['REQUEST_URI'].split('/')[1].to_sym rescue :default
+      @stats = { start: Time.now }
 
-      Log[api].info { "#{request.env['REQUEST_METHOD']} #{request.env['REQUEST_URI']}" }
+      @api = request.env['REQUEST_URI'].split('/')[1].to_sym rescue :default
 
-      Log[api].debug { "params: #{params.to_h}" }
+      Log[@api].info { "#{request.env['REQUEST_METHOD']} #{request.env['REQUEST_URI']}" }
+
+      Log[@api].debug { "params: #{params.to_h}" }
+    end
+
+    after do
+      @stats[:finish] = Time.now
+      @stats[:duration] = (@stats[:finish] - @stats[:start]).round 4
+
+      Log[@api].debug { "Stats: #{@stats}" }
     end
 
     rescue_from :all do |e|
