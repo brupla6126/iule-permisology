@@ -23,12 +23,15 @@ source "https://rubygems.org" do
 end
 
 gem 'capistrano', '>= 3.8.0'
-gem 'capistrano-service', '>= 0.0.2'
+gem 'capistrano-bundler', '~> 1.2'
+gem 'capistrano-passenger', '~> 0.2.0'
+gem 'capistrano-rvm', '~> 0.1.2'
+gem 'capistrano-service', '~> 0.0.2'
 
 gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
 
-gem 'araignee', :github => 'brupla6126/araignee', :branch => 'master'
-gem 'cloporte-permisology', :github => 'brupla6126/cloporte-permisology', :branch => 'master'
+gem 'araignee', :git => 'git@github.com:brupla6126/araignee', :branch => 'master'
+gem 'cloporte-permisology', :git => 'git@github.com:brupla6126/cloporte-permisology', :branch => 'master'
 
 # Specify your gem's dependencies in iule-permisology.gemspec
 gemspec

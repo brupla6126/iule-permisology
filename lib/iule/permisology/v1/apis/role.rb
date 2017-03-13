@@ -12,8 +12,6 @@ module PermisologyService
 
     resource :roles do
       get '/' do
-        response = {}
-
         parameters = {
           klass: Roles::Role,
           filters: {}
@@ -22,12 +20,17 @@ module PermisologyService
         result = Repository.for(Roles::Role, :finder).many(parameters)
 
         if result.successful?
-          response['entities'] = result.entities.map(&:attributes)
+          response = result.entities.map(&:attributes)
+
           status 200
         else
+          response = {}
           response['errors'] = result.messages
+
           status 500
         end
+
+        Log[:role].debug { "response: #{response}" }
 
         response
       end
@@ -47,17 +50,19 @@ module PermisologyService
 
         if result.successful?
           if result.entity
-            response['entity'] = result.entity.try(:attributes)
+            response.merge!(result.entity.try(:attributes))
+
             status 200
           else
             status 404
           end
         else
           response['errors'] = result.messages
+
           status 500
         end
 
-        Log[:roles].debug { "response: #{response}" }
+        Log[:role].debug { "response: #{response}" }
 
         response
       end
@@ -86,15 +91,18 @@ module PermisologyService
           result = Repository.for(Roles::Role, :creator).create(parameters_create)
 
           if result.successful?
-            response['entity'] = result.entity.try(:attributes)
+            response.merge!(result.entity.try(:attributes))
+#            Location: /books/12345
+
             status 201
           else
             response['errors'] = result.messages
+
             status 500
           end
         end
 
-        Log[:roles].debug { "response: #{response}" }
+        Log[:role].debug { "response: #{response}" }
 
         response
       end
@@ -117,14 +125,16 @@ module PermisologyService
         result = Repository.for(Roles::Role, :updater).update(parameters_update)
 
         if result.successful?
-          response['entity'] = result.entity.try(:attributes)
+          response = result.entity.try(:attributes)
+
           status 200
         else
           response['errors'] = result.messages
+
           status 500
         end
 
-        Log[:roles].debug { "response: #{response}" }
+        Log[:role].debug { "response: #{response}" }
 
         response
       end
@@ -142,7 +152,6 @@ module PermisologyService
         }
 
         if !Repository.for(Roles::Role, :finder).one(parameters_find).entity
-          response['ok'] = false
           status 404
         else
           parameters_delete = {
@@ -153,16 +162,17 @@ module PermisologyService
           result = Repository.for(Roles::Role, :deleter).delete(parameters_delete)
 
           if result.successful?
-            response['ok'] = true
+            response.merge!(result.entity.try(:attributes))
+
             status 200
           else
-            response['ok'] = false
             response['errors'] = result.messages
+
             status 404
           end
         end
 
-        Log[:roles].debug { "response: #{response}" }
+        Log[:role].debug { "response: #{response}" }
 
         response
       end

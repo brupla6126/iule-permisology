@@ -6,6 +6,7 @@
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
+server "production01", user: "bruno", roles: %w{app db service web}
 
 
 
@@ -31,7 +32,23 @@
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
+# bundle:install
+set :bundle_gemfile, -> { release_path.join('Gemfile') } # default: nil
+set :bundle_path, -> { shared_path.join('bundle') } # this is default. set it to nil for skipping the --path flag.
+set :bundle_without, [:development, :test]
+set :bundle_jobs, 4 # default: nil, only available for Bundler >= 1.4
 
+# logging
+set :logging, {
+  loggers: {
+    default: {
+      output: :file, # :file, :console
+      rotation: :daily,
+      level: :info, # :debug, :info, :warn, :error, :fatal
+      formatter: :date_time # :simple, :date_time, :date_time_ms, :time_ms
+    }
+  }
+}
 
 # Custom SSH Options
 # ==================

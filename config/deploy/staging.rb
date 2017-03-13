@@ -1,4 +1,4 @@
-ask(:branch, "Branch to deploy (make sure to push the branch first), default to dev" ,'dev')
+set :branch, ask('Branch to deploy (make sure to push it first), defaults to WIP-adjustments.','WIP-adjustments')
 
 # server-based syntax
 # ======================
@@ -34,7 +34,23 @@ server "staging01", user: "bruno", roles: %w{app db service web}
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
+# bundle:install
+set :bundle_gemfile, -> { release_path.join('Gemfile') } # default: nil
+set :bundle_path, -> { shared_path.join('bundle') } # this is default. set it to nil for skipping the --path flag.
+set :bundle_without, [:development]
+set :bundle_jobs, 4 # default: nil, only available for Bundler >= 1.4
 
+# logging
+set :logging, {
+  loggers: {
+    default: {
+      output: :file, # :file, :console
+      rotation: :daily,
+      level: :info, # :debug, :info, :warn, :error, :fatal
+      formatter: :time_ms # :simple, :date_time, :date_time_ms, :time_ms
+    }
+  }
+}
 
 # Custom SSH Options
 # ==================

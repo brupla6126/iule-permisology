@@ -1,6 +1,8 @@
 # config valid only for current version of Capistrano
 lock "3.8.0"
 
+set :rvm_ruby_version, '2.3.1'
+
 set :application, "iule-permisology"
 set :repo_url, "git@github.com:brupla6126/#{fetch :application}.git"
 
@@ -25,10 +27,13 @@ set :deploy_to, "/srv/services/#{fetch :name}"
 # append :linked_files, "config/database.yml", "config/secrets.yml"
 
 # Default value for linked_dirs is []
-# append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
+append :linked_dirs, "log", "tmp/pids"#, "tmp/cache", "tmp/sockets", "public/system"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 # Default value for keep_releases is 5
 set :keep_releases, 5
+
+# passenger
+set :passenger_restart_with_touch, true

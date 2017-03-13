@@ -28,7 +28,7 @@ RSpec.describe PermisologyService::RoleAPIv1 do
       it 'should return empty list of entities ' do
         body = JSON.parse(last_response.body)
 
-        expect(body['entities']).to eq([])
+        expect(body).to eq([])
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.describe PermisologyService::RoleAPIv1 do
       it 'should return entities' do
         body = JSON.parse(last_response.body)
 
-        expect(body['entities'].count).to eq(2)
+        expect(body.count).to eq(2)
       end
     end
   end
@@ -72,7 +72,7 @@ RSpec.describe PermisologyService::RoleAPIv1 do
         post '/v1/roles/', 'name' => name, 'permissions' => ['abc']
 
         body = JSON.parse(last_response.body)
-        id = body['entity']['id']
+        id = body['id']
 
         get "/v1/roles/#{id}", format: :json
       end
@@ -82,7 +82,7 @@ RSpec.describe PermisologyService::RoleAPIv1 do
 
         body = JSON.parse(last_response.body)
 
-        expect(body['entity']).not_to eq(nil)
+        expect(body).not_to eq(nil)
       end
     end
   end
@@ -99,8 +99,8 @@ RSpec.describe PermisologyService::RoleAPIv1 do
 
           body = JSON.parse(last_response.body)
 
-          expect(body['entity']['name']).to eq(name)
-          expect(body['entity']['permissions']).to eq([])
+          expect(body['name']).to eq(name)
+          expect(body['permissions']).to eq([])
         end
       end
 
@@ -115,8 +115,8 @@ RSpec.describe PermisologyService::RoleAPIv1 do
 
           body = JSON.parse(last_response.body)
 
-          expect(body['entity']['name']).to eq(name)
-          expect(body['entity']['permissions']).to eq(permissions)
+          expect(body['name']).to eq(name)
+          expect(body['permissions']).to eq(permissions)
         end
       end
     end
@@ -149,8 +149,8 @@ RSpec.describe PermisologyService::RoleAPIv1 do
 
         body = JSON.parse(last_response.body)
 
-        expect(body['entity']['name']).to eq(name)
-        expect(body['entity']['permissions']).to eq(permissions)
+        expect(body['name']).to eq(name)
+        expect(body['permissions']).to eq(permissions)
       end
     end
 
@@ -162,7 +162,7 @@ RSpec.describe PermisologyService::RoleAPIv1 do
         post "/v1/roles/", 'name' => name, 'permissions' => permissions
 
         body = JSON.parse(last_response.body)
-        @id = body['entity']['id']
+        @id = body['id']
 
         put "/v1/roles/#{@id}", 'name' => name, 'permissions' => new_permissions
       end
@@ -172,8 +172,8 @@ RSpec.describe PermisologyService::RoleAPIv1 do
 
         body = JSON.parse(last_response.body)
 
-        expect(body['entity']['name']).to eq(name)
-        expect(body['entity']['permissions']).to eq(new_permissions)
+        expect(body['name']).to eq(name)
+        expect(body['permissions']).to eq(new_permissions)
       end
     end
   end
@@ -191,10 +191,10 @@ RSpec.describe PermisologyService::RoleAPIv1 do
       let(:name) { 'ff' }
 
       before do
-        post '/v1/roles/', 'name' => name, 'permissions' => ['abc']
+        post '/v1/roles', 'name' => name, 'permissions' => ['abc']
 
         body = JSON.parse(last_response.body)
-        @id = body['entity']['id']
+        @id = body['id']
       end
 
       it 'returns status 200' do

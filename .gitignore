@@ -1,7 +1,7 @@
 /.bundle/
 /.yardoc
-/Gemfile.lock
 /_yardoc/
+/config/logging.yml
 /coverage/
 /doc/
 /lib/apis/dependencies/

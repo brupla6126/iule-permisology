@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-config = YAML.load_file("#{PermisologyService.root}/config/logging.yml")['logging']
+config = YAML.load_file("#{PermisologyService.root}/config/logging.yml")
 
 formatters = {
   simple: proc do |severity, _datetime, _progname, msg|
@@ -20,26 +20,29 @@ formatters = {
            end
 }
 
-config['loggers'].each do |logger_name, params|
-  rotation = params['rotation'] || ''
+if config['loggers']
+  config['loggers'].each do |logger_name, params|
+    rotation = params['rotation'] || 'daily'
 
-  logger = case params['output']
-    when 'console' then Logger.new(STDOUT)
-    when 'file' then Logger.new('log/permisology.log', rotation)
+    logger = case params['output']
+      when 'console' then Logger.new(STDOUT)
+      when 'file' then Logger.new("log/#{logger_name}.log", rotation)
+      end
+
+    logger.level = case params['level']
+      when 'debug' then Logger::DEBUG
+      when 'info' then Logger::INFO
+      when 'warn' then Logger::WARN
+      when 'error' then Logger::ERROR
+      when 'fatal' then Logger::FATAL
+      else Logger::WARN
     end
 
-  logger.level = case params['level']
-    when 'debug' then Logger::DEBUG
-    when 'info' then Logger::INFO
-    when 'warn' then Logger::WARN
-    when 'error' then Logger::ERROR
-    when 'fatal' then Logger::FATAL
-    else Logger::WARN
+    if params['formatter']
+      formatter = formatters[params['formatter'].to_sym] || formatters[:simple]
+      logger.formatter = formatter if formatter
+    end
+
+    Log[logger_name.to_sym] = logger
   end
-
-  formatter = formatters[params['formatter'].to_sym] || formatters[:simple]
-  logger.formatter = formatter if formatter
-
-  Log[logger_name.to_sym] = logger
 end
-
